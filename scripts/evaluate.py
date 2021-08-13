@@ -1,7 +1,6 @@
 from itertools import combinations, product
 from typing import List, Dict, Any, Tuple, Iterable, Set
 from common import Role, Argument
-from paraphrases import get_paraphrase_score
 import networkx as nx
 from networkx.algorithms.matching import max_weight_matching
 
@@ -119,22 +118,22 @@ def evaluate(sys_roles: List[Role],
     n_unlabel_fn = len(grt_args) - n_unlabel_tp
     unlabelled_arg_metrics = Metrics(n_unlabel_tp, n_unlabel_fp, n_unlabel_fn)
 
-    sys_qna = set((role.question, arg) for role in sys_roles for arg in role.arguments)
-    grt_qna = set((role.question, arg) for role in grt_roles for arg in role.arguments)
-    n_label_tp, n_label_fp, n_label_fn = n_unlabel_tp, n_unlabel_fp, n_unlabel_fn
-    matched_grt_roles = set()
-    for sys_arg, grt_arg in sys_to_grt_arg.items():
-        sys_q = next(q for (q, a) in sys_qna if a == sys_arg)
-        grt_q = next(q for q, a in grt_qna if a == grt_arg)
-
-        matched_grt_roles.add(grt_q)
-        if not get_paraphrase_score(sys_q, grt_q):
-            n_label_tp -= 1
-            n_label_fp += 1
-            n_label_fn += 1
-    labeled_arg_metrics = Metrics(n_label_tp, n_label_fp, n_label_fn)
-
-    n_unlabel_role_tp = len(matched_grt_roles)
-    n_unlabel_role_fn = len(grt_roles) - n_unlabel_role_tp
-    role_metrics = Metrics(n_unlabel_role_tp, 0, n_unlabel_role_fn)
-    return unlabelled_arg_metrics, labeled_arg_metrics, role_metrics
+    # sys_qna = set((role.question, arg) for role in sys_roles for arg in role.arguments)
+    # grt_qna = set((role.question, arg) for role in grt_roles for arg in role.arguments)
+    # n_label_tp, n_label_fp, n_label_fn = n_unlabel_tp, n_unlabel_fp, n_unlabel_fn
+    # matched_grt_roles = set()
+    # for sys_arg, grt_arg in sys_to_grt_arg.items():
+    #     sys_q = next(q for (q, a) in sys_qna if a == sys_arg)
+    #     grt_q = next(q for q, a in grt_qna if a == grt_arg)
+    #
+    #     matched_grt_roles.add(grt_q)
+    #     if not get_paraphrase_score(sys_q, grt_q):
+    #         n_label_tp -= 1
+    #         n_label_fp += 1
+    #         n_label_fn += 1
+    # labeled_arg_metrics = Metrics(n_label_tp, n_label_fp, n_label_fn)
+    #
+    # n_unlabel_role_tp = len(matched_grt_roles)
+    # n_unlabel_role_fn = len(grt_roles) - n_unlabel_role_tp
+    # role_metrics = Metrics(n_unlabel_role_tp, 0, n_unlabel_role_fn)
+    return unlabelled_arg_metrics, None, None
