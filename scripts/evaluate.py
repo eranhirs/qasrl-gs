@@ -1,6 +1,6 @@
 from itertools import combinations, product
 from typing import List, Dict, Any, Tuple, Iterable, Set
-from common import Role, Argument
+from qasrl_gs.scripts.common import Role, Argument
 import networkx as nx
 from networkx.algorithms.matching import max_weight_matching
 
