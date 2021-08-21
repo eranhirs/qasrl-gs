@@ -1,8 +1,13 @@
-from typing import Tuple, List, Set, Iterable
+from dataclasses import dataclass
+from typing import Tuple, List, Set, Iterable, Optional
+
+from dataclasses_json import dataclass_json, LetterCase
 
 Argument = Tuple[int, int]
 
 QUESTION_FIELDS = ['wh', 'subj', 'obj', 'aux', 'prep', 'obj2', 'is_passive', 'is_negated']
+
+STR_FORMAT_ANSWER_SEPARATOR = "~!~"  # Separates between answers when represented as a string
 
 
 class Question:
@@ -30,7 +35,6 @@ class Question:
         return self.text == other.text
 
 
-
 class Role:
     def __init__(self, question: Question, arguments: Iterable[Tuple[Argument, ...]]):
         self.question = question
@@ -46,6 +50,32 @@ class Role:
         return f"{self.text()} ==> { ' / '.join(str(a) for a in self.arguments)}"
 
 
+@dataclass_json
+@dataclass
+class QuestionAnswer:
+    """
+    Adheres to the csv format in qasrl-gs
+    """
 
+    qasrl_id: str
+    verb_idx: int
+    verb: str
+    question: str
+    answer: str
+    answer_range: str
+    wh: Optional[str] = None
+    aux: Optional[str] = None
+    subj: Optional[str] = None
+    obj: Optional[str] = None
+    prep: Optional[str] = None
+    obj2: Optional[str] = None
+    is_negated: Optional[bool] = None
+    is_passive: Optional[bool] = None
 
+    @staticmethod
+    def answer_obj_to_str(answer_range: List[str]) -> str:
+        return STR_FORMAT_ANSWER_SEPARATOR.join([x for x in answer_range])
 
+    @staticmethod
+    def answer_range_obj_to_str(answer_range: List[Argument]) -> str:
+        return STR_FORMAT_ANSWER_SEPARATOR.join([f"{x[0]}:{x[1]}" for x in answer_range])
