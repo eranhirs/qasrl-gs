@@ -1,6 +1,6 @@
 import pandas as pd
 from typing import List, Tuple
-from common import Argument, QUESTION_FIELDS
+from qasrl_gs.scripts.common import Argument, QUESTION_FIELDS
 SPAN_SEPARATOR = "~!~"
 
 

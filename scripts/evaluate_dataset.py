@@ -7,9 +7,9 @@ from argparse import ArgumentParser
 
 from tqdm import tqdm
 
-from evaluate import evaluate, Metrics, match_arguments
-from common import Question, Role, QUESTION_FIELDS, Argument
-from decode_encode_answers import NO_RANGE, decode_qasrl
+from qasrl_gs.scripts.evaluate import evaluate, Metrics, match_arguments
+from qasrl_gs.scripts.common import Question, Role, QUESTION_FIELDS, Argument
+from qasrl_gs.scripts.decode_encode_answers import NO_RANGE, decode_qasrl
 
 
 def to_arg_roles(roles: List[Role]):
