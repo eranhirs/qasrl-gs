@@ -127,10 +127,10 @@ def evaluate(sys_roles: List[Role],
         grt_q = next(q for q, a in grt_qna if a == grt_arg)
 
         matched_grt_roles.add(grt_q)
-        if not get_paraphrase_score(sys_q, grt_q):
-            n_label_tp -= 1
-            n_label_fp += 1
-            n_label_fn += 1
+        # if not get_paraphrase_score(sys_q, grt_q):
+        #     n_label_tp -= 1
+        #     n_label_fp += 1
+        #     n_label_fn += 1
     labeled_arg_metrics = Metrics(n_label_tp, n_label_fp, n_label_fn)
 
     n_unlabel_role_tp = len(matched_grt_roles)
