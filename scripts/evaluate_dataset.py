@@ -100,12 +100,12 @@ def main(proposed_path: str, reference_path: str, sents_path=None):
     unlabelled_arg, labelled_arg, unlabelled_role = eval_datasets(grt_df, sys_df)
     print("Metrics:\tPrecision\tRecall\tF1")
     print(f"Unlabelled Argument: {unlabelled_arg}")
-    # print(f"labelled Argument: {labelled_arg}")
+    print(f"labelled Argument: {labelled_arg}")
     print(f"Unlabelled Role: {unlabelled_role}")
 
     print("Metrics:\tTP\tFP\tFN")
     print(f"Unlabelled Argument: {' '.join(str(t) for t in unlabelled_arg.as_tuple())}")
-    # print(f"labelled Argument: {' '.join(str(t) for t in labelled_arg.as_tuple())}")
+    print(f"labelled Argument: {' '.join(str(t) for t in labelled_arg.as_tuple())}")
     print(f"Unlabelled Role: {' '.join(str(t) for t in unlabelled_role.as_tuple())}")
 
     if sents_path is not None:

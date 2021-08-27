@@ -1,6 +1,7 @@
 from itertools import combinations, product
 from typing import List, Dict, Any, Tuple, Iterable, Set
 from qasrl_gs.scripts.common import Role, Argument
+from qasrl_gs.scripts.paraphrases import is_paraphrase
 import networkx as nx
 from networkx.algorithms.matching import max_weight_matching
 
@@ -127,10 +128,10 @@ def evaluate(sys_roles: List[Role],
         grt_q = next(q for q, a in grt_qna if a == grt_arg)
 
         matched_grt_roles.add(grt_q)
-        # if not get_paraphrase_score(sys_q, grt_q):
-        #     n_label_tp -= 1
-        #     n_label_fp += 1
-        #     n_label_fn += 1
+        if not is_paraphrase(sys_q, grt_q):
+            n_label_tp -= 1
+            n_label_fp += 1
+            n_label_fn += 1
     labeled_arg_metrics = Metrics(n_label_tp, n_label_fp, n_label_fn)
 
     n_unlabel_role_tp = len(matched_grt_roles)
