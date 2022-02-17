@@ -63,6 +63,7 @@ class QuestionAnswer:
     question: str
     answer: str
     answer_range: str
+    verb_form: Optional[str] = None
     wh: Optional[str] = None
     aux: Optional[str] = None
     subj: Optional[str] = None

@@ -120,6 +120,7 @@ def main(proposed_path: str, reference_path: str, sents_path=None):
         align.sort_values(['qasrl_id','verb_idx', 'grt_role'], inplace=True)
         align.to_csv(align_path, encoding="utf-8", index=False)
 
+    return unlabelled_arg, labelled_arg, unlabelled_role
 
 def yield_paired_predicates(sys_df: pd.DataFrame, grt_df: pd.DataFrame):
     predicate_ids = grt_df[['qasrl_id', 'verb_idx']].drop_duplicates()
